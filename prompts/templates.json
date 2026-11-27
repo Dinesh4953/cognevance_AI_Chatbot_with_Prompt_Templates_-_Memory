@@ -1,0 +1,38 @@
+{
+  "conversational_qa": {
+    "name": "Conversational IT & HR Helpdesk Q&A",
+    "version": "2.0",
+    "variables": ["policy_context", "conversation_summary", "recent_history", "user_profile", "user_query"],
+    "template": "Reference Policy Context:\n{policy_context}\n\nUser Profile: {user_profile}\nRolling Conversation Summary: {conversation_summary}\n\nRecent Turns:\n{recent_history}\n\nCurrent User Message: {user_query}\n\nProvide an accurate, empathetic, and concise response grounded in the policy context and prior conversation."
+  },
+  "structured_ticket_json": {
+    "name": "Structured Support Ticket JSON Generator",
+    "version": "2.0",
+    "variables": ["policy_context", "conversation_summary", "user_profile", "user_query"],
+    "template": "Convert the user's request and conversation context into a single valid JSON object matching this exact schema:\n{{\n  \"ticket_id\": \"NC-XXXX\",\n  \"category\": \"IT_ACCESS | IT_HARDWARE | IT_NETWORK | HR_LEAVE | HR_EXPENSE | ONBOARDING\",\n  \"priority\": \"P1_CRITICAL | P2_HIGH | P3_NORMAL\",\n  \"summary\": \"concise 1-sentence issue summary\",\n  \"action_steps\": [\"step 1\", \"step 2\", \"step 3\"],\n  \"escalation_needed\": true,\n  \"sla_target\": \"e.g. 15 minutes / 4 hours / 1 business day\",\n  \"confidence\": 0.92\n}}\n\nPolicy Context:\n{policy_context}\nUser Profile: {user_profile}\nConversation Summary: {conversation_summary}\nUser Request: {user_query}\n\nReturn ONLY raw JSON without extra explanation."
+  },
+  "policy_comparison_table": {
+    "name": "Structured Policy / SLA Comparison Table",
+    "version": "2.0",
+    "variables": ["policy_context", "user_query"],
+    "template": "Using the NovaCloud policy context below, answer the user's request as a clean Markdown table with clear column headers and concise cell values.\n\nPolicy Context:\n{policy_context}\n\nUser Request: {user_query}\n\nRequirements:\n- Include at least 3 columns and 2+ data rows.\n- Follow the table with a 1-sentence key takeaway."
+  },
+  "troubleshooting_steps": {
+    "name": "Guided IT Troubleshooting Checklist",
+    "version": "2.0",
+    "variables": ["device_os", "conversation_summary", "user_query"],
+    "template": "Generate a numbered, step-by-step IT troubleshooting checklist for an employee.\nDevice/OS Context: {device_os}\nPrior Context: {conversation_summary}\nReported Issue: {user_query}\n\nFormat:\n1. Quick verification check\n2. Primary diagnostic/fix\n3. Escalation criteria if unresolved"
+  },
+  "clarification_request": {
+    "name": "Ambiguity Clarification Prompt",
+    "version": "2.0",
+    "variables": ["user_query", "missing_details"],
+    "template": "The user sent an ambiguous request: \"{user_query}\".\nMissing details: {missing_details}\nAsk 2-3 polite, specific clarifying questions so we can resolve their IT or HR request accurately."
+  },
+  "memory_summarizer": {
+    "name": "Rolling Conversation Memory Summarizer",
+    "version": "2.0",
+    "variables": ["prior_summary", "turns_to_compress"],
+    "template": "Update the running helpdesk summary by integrating the older conversation turns below. Keep user name, department, device/OS, key policy facts discussed, and open action items under 80 words.\n\nPrior Summary: {prior_summary}\nTurns to Compress:\n{turns_to_compress}\n\nUpdated Summary:"
+  }
+}
